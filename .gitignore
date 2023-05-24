@@ -11,5 +11,8 @@ grading/**
 *.output
 semant
 cgen
-myparser
 parser
+myparser
+cool.tab.h
+cool.tab.c
+cool-parse.cc
