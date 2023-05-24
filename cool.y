@@ -152,7 +152,16 @@
     %type <expression> let
     
     /* Precedence declarations go here. */
-    
+
+    %right ASSIGN
+    %right NOT
+    %nonassoc LE '<' '='
+    %left '-' '+'
+    %left '*' '/'
+    %right ISVOID
+    %right '~'
+    %right '@'
+    %left '.'
     
     %%
     /* 
