@@ -183,6 +183,8 @@
       { $$ = class_($2,idtable.add_string("Object"),$4, stringtable.add_string(curr_filename)); }
     | CLASS TYPEID INHERITS TYPEID '{' feature_list '}' ';' 
       { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
+    | error ';'
+      { yyerrok; }
     ;
     
     /* Feature list may be empty, but no empty features in list. */
@@ -235,7 +237,7 @@
       { $$ = cond($2, $4, $6); }
     | WHILE expression LOOP expression POOL
       { $$ = loop($2, $4); }
-    | '{' expression_list '}'
+    | '{' expression_list ';' '}'
       { $$ = block($2); }
     | LET let
       { $$ = $let; }

@@ -5,3 +5,7 @@ class Main inherits IO {
       let hugePenis:Int <- 42, smallVagina:String <- "Penis" in print(hugePenis + smallVagina)
    };
 };
+class TestBadClassRecovery inheris IO {
+};
+class ThisShouldStillBeParsed inherits IO {
+};
