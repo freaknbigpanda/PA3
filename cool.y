@@ -172,13 +172,15 @@
     program	: class_list	{ @$ = @1; ast_root = program($1); }
     ;
     
-    class_list
-    : class			/* single class */
+    class_list : 
+    class /* single class */
       { $$ = single_Classes($1); parse_results = $$; }
     | class_list class	/* several classes */
       { $$ = append_Classes($1,single_Classes($2)); parse_results = $$; }
     | class_list error /* error case */
-      { $$ = $1; }
+      { $$ = $1; parse_results = $$; }
+    | error class_list /* error case */
+      { $$ = $2; parse_results = $$; }
     ;
     
     /* If no parent is specified, the class inherits from the Object class. */
