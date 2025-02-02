@@ -238,6 +238,8 @@
       {$$ = single_Expressions($1); }
     | expression_list ',' expression /* several expressions */
       {$$ = append_Expressions($1, single_Expressions($3)); }
+    | expression_list error
+      {$$ = $1; }
     ;
 
     expression:
@@ -259,6 +261,8 @@
       { $$ = $2; }
     | CASE expression OF case_list ESAC
       { $$ = typcase( $2, $4 ); }
+    | CASE error OF case_list ESAC
+      { $$ = typcase(no_expr(), $4); }
     | NEW TYPEID
       { $$ = new_($2); }
     | ISVOID expression
@@ -294,7 +298,10 @@
     ;
 
     assignment_expression: /* empty */
-      { $$ = no_expr(); }
+      { 
+      SET_NODELOC(0); // this was needed because I was getting garbage line numbers printed for no_expr() tree nodes
+      $$ = no_expr(); 
+      }
     | ASSIGN expression
       { $$ = $2; }
 
